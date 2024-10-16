@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, FormEvent } from 'react';
+import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -17,7 +18,7 @@ interface ChartDataItem {
 const Dashboard: React.FC = () => {
   const [userID, setUserID] = useState<string>('');
   const [campaignID, setCampaignID] = useState<string>('');
-  const [date, setDate] = useState<string>('');
+  const [date, setDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [chartData, setChartData] = useState<ChartDataItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toast } = useToast()
@@ -38,7 +39,7 @@ const Dashboard: React.FC = () => {
       fetchChartData();
       setUserID('');
       setCampaignID('');
-      setDate('');
+      setDate(format(new Date(), 'yyyy-MM-dd'));
     } catch (error) {
       console.error('Error inserting data:', error);
       toast({
